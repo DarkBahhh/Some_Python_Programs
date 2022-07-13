@@ -21,3 +21,17 @@ def shift_n(letter, position):
 def cesar2(message, position):
     enc_list = [shift_n(letter, position) for letter in message]
     return "".join(enc_list)
+
+# Cesar code with an imitation of the "translate" methode and a better way to fix the letter in the lowercase number range of the ASCII code.
+def shift_n2(letter, table):
+    try:
+        index = string.ascii_lowercase.index(letter)
+        return table[index]
+    except ValueError:
+        return letter
+
+def cesar3(message, position):
+    position = position % 26
+    table = string.ascii_lowercase[position :] + string.ascii_lowercase[: position]
+    enc_list = [shift_n2(letter, table) for letter in message]
+    return "".join(enc_list)
