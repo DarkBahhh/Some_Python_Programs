@@ -1,4 +1,5 @@
 import datetime
+import sys
 
 def compute_time_diff_seconds(start, end):
     format = "%b %d %H:%M:%S:%f"
@@ -29,3 +30,13 @@ def extract_data(filename):
             total_time_on += time_on
             time_on_started = None
     return total_time_on, errs
+
+if __name__ == "__main__":
+    total_time_on, errs = extract_data(sys.argv[1])
+    print("The device was ON during {} seconds.".format(total_time_on))
+    if errs:
+        print("Timestamp for error event:")
+        for err in errs:
+            print("\t{}".format(err))
+    else:
+        print("No error found.")
