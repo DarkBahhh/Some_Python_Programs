@@ -14,3 +14,18 @@ def get_next_event(filename):
                 action = line.split()[-1]
                 timestamp = line[:19]
                 yield (action, timestamp)
+
+def extract_data(filename):
+    time_on_started = None
+    errs = []
+    total_time_on = 0
+    for action, timestamp in get_next_event(filename):
+        if "ERR" == action:
+            errs.append(timestamp)
+        elif ("ON" == action) and (not time_on_started):
+            time_on_started = timestamp
+        elif ("OFF" == action) and time_on_started:
+            time_on = compute_time_diff_seconds(time_on_started, timestamp)
+            total_time_on += time_on
+            time_on_started = None
+    return total_time_on, errs
