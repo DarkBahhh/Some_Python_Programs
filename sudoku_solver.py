@@ -39,3 +39,16 @@ def compute_next_position(x, y):
 def test_and_remove(value, possible):
     if value != 0 and value in possible:
         possible.remove(value)
+
+def detect_possible(grid, x, y):
+    if grid[x][y]:
+        return [grid[x][y]]
+    possible = set(range(1, 10))
+    for index in range(9):
+        if index != y:
+            test_and_remove(grid[x][index], possible)
+        if index != x:
+            test_and_remove(grid[index][y], possible)
+    for subX, subY in small_square(x, y):
+        test_and_remove(grid[subX][subY], possible)
+    return list(possible)
