@@ -76,3 +76,11 @@ def solve(start, x, y):
             if result:
                 return result
             return False
+
+def sudoku_solve(input_string):
+    grid = line_to_grid(input_string)
+    answer = solve(grid, 0, 0)
+    if answer:
+        return grid_to_line(answer)
+    else:
+        return "Unsolvable"
