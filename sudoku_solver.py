@@ -1,3 +1,5 @@
+import copy
+
 def line_to_grid(values):
     grid = []
     line = []
@@ -52,3 +54,25 @@ def detect_possible(grid, x, y):
     for subX, subY in small_square(x, y):
         test_and_remove(grid[subX][subY], possible)
     return list(possible)
+
+def solve(start, x, y):
+    temp = copy.deepcopy(start)
+    while True:
+        possible = detect_possible(temp, x, y)
+        if not possible:
+            return False
+        finished, nextX, nextY = compute_next_position(x, y)
+        if finished:
+            temp[x][y] = possible[0]
+            return temp
+        if len(possible) > 1:
+            break
+        temp[x][y] = possible[0]
+        x = nextX
+        y = nextY
+        for guess in possible:
+            temp[x][y] = guess
+            result = solve(temp, nextX, nextY)
+            if result:
+                return result
+            return False
