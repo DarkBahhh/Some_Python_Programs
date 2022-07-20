@@ -15,3 +15,14 @@ def grid_to_line(grid):
         r = "".join(str(x) for x in row)
         line += r
     return line
+
+def small_square(x, y):
+    upperX = ((x+3) // 3) * 3
+    upperY = ((y+3) // 3) * 3
+    lowerX = upperX - 3
+    lowerY = upperY - 3
+    for subX in range(lowerX, upperX):
+        for subY in range(lowerY, upperY):
+            if subX != x or subY != y:
+                if not (subX == x and subY == y):
+                    yield subX, subY
