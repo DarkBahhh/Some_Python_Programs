@@ -26,3 +26,12 @@ def small_square(x, y):
             if subX != x or subY != y:
                 if not (subX == x and subY == y):
                     yield subX, subY
+
+def compute_next_position(x, y):
+    nextY = y
+    nextX = (x + 1) % 9
+    if nextX < x:
+        nextY = (y + 1) % 9
+        if nextY < y:
+            return (True, 0, 0)
+    return (False, nextX, nextY)
