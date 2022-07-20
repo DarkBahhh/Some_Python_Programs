@@ -35,3 +35,7 @@ def compute_next_position(x, y):
         if nextY < y:
             return (True, 0, 0)
     return (False, nextX, nextY)
+
+def test_and_remove(value, possible):
+    if value != 0 and value in possible:
+        possible.remove(value)
